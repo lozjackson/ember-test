@@ -1,28 +1,43 @@
 <h2 id="title">Welcome to Ember</h2>
 
 <p>
-  model is an Ember.Object created in the routes model hook.<br>
-  obj is an Ember.ObjectProxy created on the ApplicationController with the `model` as its content
+  model is an Ember.Object created in the route's model hook.<br>
+  obj is an Ember.ObjectProxy created on the ApplicationController with the model as its content
 </p>
 <div id="model-name">
 
-model.name: {{model.name}}
+  model.name: {{model.name}}
+  {{!log 'model' model}}
 
 </div>
 
 <div id="obj-name">
 
-{{#with obj as |model|}}
-  obj.name: {{model.name}}
-{{/with}}
+  {{log 'outside the with helper' obj}}
+
+  {{#with obj as |model|}}
+
+    obj.name: {{model.name}}
+
+    {{log 'inside with helper (should be the same as above, but instead is Boolean)' model}}
+
+  {{/with}}
 
 </div>
 
-<p>model.name and obj.name should be the same.</p>
+<p>
+  model.name and obj.name should be the same.
+</p>
 <p>
   This works as expected in Ember v2.3.1<br>
   But in Ember 2.4.1 `obj.name` is undefined.
   There is an acceptance test that passes in v2.3.1, but fails in 2.4.1 (haven't tested 2.4.0).
+</p>
+
+<p>
+  If you look in the console, you will see that obj is the expected Ember.ObjectProxy
+  when logged outside of the `with` helper, but when used inside the `with` helper
+  the aliased property is a Boolean (true) instead of an object.
 </p>
 
 {{outlet}}
