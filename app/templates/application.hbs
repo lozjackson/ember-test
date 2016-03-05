@@ -1,3 +1,17 @@
 <h2 id="title">Welcome to Ember</h2>
 
+<div id="model-name">
+
+model.name: {{model.name}}
+
+</div>
+
+<div id="obj-name">
+
+{{#with obj as |model|}}
+  obj.name: {{model.name}}
+{{/with}}
+
+</div>
+
 {{outlet}}
