@@ -1,5 +1,9 @@
 <h2 id="title">Welcome to Ember</h2>
 
+<p>
+  model is an Ember.Object created in the routes model hook.<br>
+  obj is an Ember.ObjectProxy created on the ApplicationController with the `model` as its content
+</p>
 <div id="model-name">
 
 model.name: {{model.name}}
@@ -13,5 +17,12 @@ model.name: {{model.name}}
 {{/with}}
 
 </div>
+
+<p>model.name and obj.name should be the same.</p>
+<p>
+  This works as expected in Ember v2.3.1<br>
+  But in Ember 2.4.1 `obj.name` is undefined.
+  There is an acceptance test that passes in v2.3.1, but fails in 2.4.1 (haven't tested 2.4.0).
+</p>
 
 {{outlet}}
