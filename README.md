@@ -1,53 +1,21 @@
 # Ember-test
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This app has an acceptance test `tests/acceptance/application-test.js` that fails when using Ember v2.4.1
 
-## Prerequisites
+It passes with Ember v.2.3.1
 
-You will need the following things properly installed on your computer.
+The problem seems to be the `with` helper when using an `Ember.ObjectProxy`  
 
-* [Git](http://git-scm.com/)
-* [Node.js](http://nodejs.org/) (with NPM)
-* [Bower](http://bower.io/)
-* [Ember CLI](http://www.ember-cli.com/)
-* [PhantomJS](http://phantomjs.org/)
+```
+{{model}} // => Ember.Object
+{{model.name}} // => 'abc'
 
-## Installation
+{{obj}} // => Ember.ObjectProxy
 
-* `git clone <repository-url>` this repository
-* change into the new directory
-* `npm install`
-* `bower install`
+{{#with obj as |model|}}
 
-## Running / Development
+  {{model}} // => true (should be the same as `obj`)
+  {{model.name}} // => `undefined`
 
-* `ember server`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
-
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
-
-### Running Tests
-
-* `ember test`
-* `ember test --server`
-
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
-
-* [ember.js](http://emberjs.com/)
-* [ember-cli](http://www.ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
-
+{{/with}}
+```
