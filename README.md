@@ -7,6 +7,8 @@ It passes with Ember v.2.3.1
 The problem seems to be the `with` helper when using an `Ember.ObjectProxy`  
 
 ```
+// application.hbs
+
 {{model}} // => Ember.Object
 {{model.name}} // => 'abc'
 
